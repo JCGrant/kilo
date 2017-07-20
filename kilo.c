@@ -359,6 +359,15 @@ void editorDrawStatusBar(struct abuf *ab) {
   abAppend(ab, "\r\n", 2);
 }
 
+void editorDrawMessageBar(struct abuf *ab) {
+  abAppend(ab, "\x1b[K", 3);
+  int msglen = strlen(E.statusmsg);
+  if (msglen > E.screencols) msglen = E.screencols;
+  if (msglen) {
+    abAppend(ab, E.statusmsg, msglen);
+  }
+}
+
 void editorRefreshScreen() {
   editorScroll();
 
@@ -369,6 +378,7 @@ void editorRefreshScreen() {
 
   editorDrawRows(&ab);
   editorDrawStatusBar(&ab);
+  editorDrawMessageBar(&ab);
 
   char buf[32];
   snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1,
