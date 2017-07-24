@@ -530,7 +530,7 @@ void editorSetStatusMessage(const char *fmt, ...) {
   E.statusmsg_time = time(NULL);
 }
 
-/*** init ***/
+/*** input ***/
 
 void editorMoveCursor(int key) {
   erow *row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
@@ -647,6 +647,8 @@ void editorProcessKeypress() {
 
   quit_times = KILO_QUIT_TIMES;
 }
+
+/*** init ***/
 
 void initEditor() {
   E.cx = 0;
